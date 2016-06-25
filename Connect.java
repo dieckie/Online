@@ -31,6 +31,9 @@ public class Connect extends World
     Runnable server = new Runnable() {
             public void run(){
                 try {
+                    if(portHost.getText().equals("")) {
+                        portHost.setText("50505");
+                    }
                     ServerSocket server = new ServerSocket(Integer.parseInt(portHost.getText()));
                     Socket client = server.accept();
                     PrintWriter out = new PrintWriter(client.getOutputStream(), true);
@@ -42,6 +45,8 @@ public class Connect extends World
                     client.close();
                     Greenfoot.setWorld(new PongWorld(server.getLocalPort(), null));
                 } catch(IOException e) {
+                    join.enable();
+                    host.enable();
                     e.printStackTrace();
                 }
             }
@@ -50,6 +55,12 @@ public class Connect extends World
     Runnable client = new Runnable() {
             public void run() {
                 try {
+                    if(ip.getText().equals("")) {
+                        ip.setText("93.216.119.237");
+                    }
+                    if(portJoin.getText().equals("")) {
+                        portJoin.setText("50505");
+                    }
                     Socket s = new Socket(ip.getText(), Integer.parseInt(portJoin.getText()));
                     PrintWriter out = new PrintWriter(s.getOutputStream(), true);
                     out.println(System.getProperty("user.name"));
@@ -58,6 +69,8 @@ public class Connect extends World
                     s.close();
                     Greenfoot.setWorld(new PongWorld(s.getPort(), ip.getText()));
                 } catch(IOException e) {
+                    join.enable();
+                    host.enable();
                     e.printStackTrace();
                 }
             }
@@ -74,9 +87,9 @@ public class Connect extends World
         join.setOnClickListener(new OnClickListener(){
 
                 public void onClick() {
+                    //join.disable();
+                    //host.disable();
                     executor.execute(client);
-                    join.disable();
-                    host.disable();
                 }    
 
             });
@@ -89,9 +102,9 @@ public class Connect extends World
         host.setOnClickListener(new OnClickListener(){
 
                 public void onClick() {
-                    executor.execute(server);
                     join.disable();
                     host.disable();
+                    executor.execute(server);
                 }    
 
             });

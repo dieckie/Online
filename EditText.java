@@ -155,4 +155,9 @@ public class EditText extends Actor {
     public String getText() {
         return text.toString();
     }
+   
+    public void setText(String text) {
+        this.text = new StringBuilder(text);
+        draw();
+    }
 }

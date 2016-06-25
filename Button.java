@@ -75,4 +75,9 @@ public class Button extends Actor {
         enabled = false;
         draw();
     }
+    
+    public void enable() {
+        enabled = true;
+        draw();
+    }
 }

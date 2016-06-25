@@ -11,7 +11,7 @@ import java.awt.*;
 public class Ball extends Actor {
 
     final int SIZE = 20;
-    final float SPEED = 2.5f;
+    final float SPEED = 5f;
 
     float vx, vy;
     float x, y;

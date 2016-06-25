@@ -15,7 +15,7 @@ public class Paddle extends Actor {
     final int WIDTH = 30;
     final float FRICTION = 0.98f;
 
-    final float SPEED = 2f;
+    final float SPEED = 4f;
 
     boolean init = true;
     /** Spielt der Player von hier oder der ferne? */
