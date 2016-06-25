@@ -20,6 +20,8 @@ public class Ball extends Actor {
     boolean update = false;
     PongWorld world;
 
+    long lastTime;
+
     public Ball() {
         GreenfootImage sprite = new GreenfootImage(SIZE, SIZE);
         sprite.setColor(Color.WHITE);
@@ -28,21 +30,28 @@ public class Ball extends Actor {
     }
 
     public void act() {
-        update = false;
+        update = true;
         if(init) {
             init = false;
             world = (PongWorld) getWorld();
             resetLocation();
+            lastTime = System.currentTimeMillis();
+
         }
 
-        collisionDetection();
-        movement();
+        int deltaTime = (int)(System.currentTimeMillis() - lastTime);
+        float factor = deltaTime / 15f;
+        lastTime = System.currentTimeMillis();
+
+        collisionDetection(factor);
+        movement(factor);
+
         if(update && world.isServer()) {
             world.updateBall();
         }
     }
-    
-    public void collisionDetection() {
+
+    public void collisionDetection(float factor) {
         Paddle p = (Paddle) getOneIntersectingObject(Paddle.class);
         if(p != null) {
             //Links
@@ -51,7 +60,7 @@ public class Ball extends Actor {
                 realY = y - (vy / vx) * (p.getX() - p.getWidth() / 2 - x);
             }
             float distance = y - p.getFY();
-            if(Math.abs(distance) + 2 < (p.getHeight() + SIZE) / 2) {
+            if(Math.abs(distance) + 4 < (p.getHeight() + SIZE) / 2) {
                 //float angle = distance * ((float)Math.PI * 0.5f / (p.getHeight() + SIZE) );
                 //System.out.println(angle);
                 //vx *= -1;
@@ -60,7 +69,7 @@ public class Ball extends Actor {
                 // vx = (float) Math.cos(angle) * -1 * SPEED;
                 // vy = (float) Math.sin(angle) * SPEED;
                 update = true;
-                movement();
+                movement(factor);
             } else {
                 vy *= -1;
                 // if(distance > 0) {
@@ -75,7 +84,7 @@ public class Ball extends Actor {
                 // }
                 // }
                 update = true;
-                movement();
+                movement(factor);
             }
 
         }
@@ -94,9 +103,9 @@ public class Ball extends Actor {
         }
     }
 
-    public void movement() {
-        x += vx;
-        y += vy;
+    public void movement(float factor) {
+        x += vx * factor;
+        y += vy * factor;
         setLocation(Math.round(x), Math.round(y));
     }
 

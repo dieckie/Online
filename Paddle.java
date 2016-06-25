@@ -7,8 +7,7 @@ import java.awt.*;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Paddle extends Actor
-{
+public class Paddle extends Actor {
     float vy;
     float y;
 
@@ -22,6 +21,7 @@ public class Paddle extends Actor
     /** Spielt der Player von hier oder der ferne? */
     boolean isPlayer;
 
+    long lastTime;
     public Paddle(boolean isPlayer) {
         this.isPlayer = isPlayer;
         GreenfootImage sprite = new GreenfootImage(WIDTH, HEIGHT);
@@ -36,19 +36,22 @@ public class Paddle extends Actor
             y = getY();
         }
         if(isPlayer) {
-            controlls();
+            int deltaTime = (int)(System.currentTimeMillis() - lastTime);
+            float factor = deltaTime / 15f;
+            lastTime = System.currentTimeMillis();
+            controlls(factor);
         }
     }
 
-    public void controlls() {
+    public void controlls(float factor) {
         if(Greenfoot.isKeyDown("W") || Greenfoot.isKeyDown("up")) {
             if(getY() > HEIGHT / 2) {
-                y -= SPEED;
+                y -= SPEED * factor;
             }
         }
         if(Greenfoot.isKeyDown("S") || Greenfoot.isKeyDown("down")) {
             if(getY() < getWorld().getHeight() - (HEIGHT / 2)) {
-                y += SPEED;
+                y += SPEED * factor;
             }
         }
         setLocation(getX(), Math.round(y));
@@ -57,7 +60,7 @@ public class Paddle extends Actor
     public float getFY() {
         return y;
     }
-    
+
     public void setFY(float y) {
         this.y = y;
         setLocation(getX(), Math.round(y));

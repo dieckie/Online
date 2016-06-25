@@ -19,7 +19,7 @@ public class PongWorld extends World {
         super(1280, 720, 1);
         setBackground("images/background.png");
         prepare();
-        Greenfoot.setSpeed(60);
+        Greenfoot.setSpeed(50);
         isServer = ip == null;
         if(ip == null) {
             server = new Server(this, port);
