@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Button
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Button\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=width\ height\ fontSize\ text
+comment1.target=Button(int,\ int,\ float,\ java.lang.String)
+comment2.params=cl
+comment2.target=void\ setOnClickListener(OnClickListener)
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ draw()
+comment5.params=
+comment5.target=void\ disable()
+numComments=6
