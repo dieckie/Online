@@ -37,7 +37,7 @@ public class Paddle extends Actor {
         }
         if(isPlayer) {
             int deltaTime = (int)(System.currentTimeMillis() - lastTime);
-            float factor = deltaTime / 15f;
+            float factor = deltaTime / 20f;
             lastTime = System.currentTimeMillis();
             controlls(factor);
         }

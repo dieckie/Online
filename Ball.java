@@ -30,7 +30,7 @@ public class Ball extends Actor {
     }
 
     public void act() {
-        update = true;
+        update = false;
         if(init) {
             init = false;
             world = (PongWorld) getWorld();
@@ -40,7 +40,7 @@ public class Ball extends Actor {
         }
 
         int deltaTime = (int)(System.currentTimeMillis() - lastTime);
-        float factor = deltaTime / 15f;
+        float factor = deltaTime / 20f;
         lastTime = System.currentTimeMillis();
 
         collisionDetection(factor);
